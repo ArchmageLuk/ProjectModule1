@@ -76,34 +76,34 @@ char[] evencharsarray = new char[evennumbersarray.Length];
 char[] oddcharsarray = new char[oddnumbersarray.Length];
 
 // для каждого числа в чётном массиве
-foreach (int i in evennumbersarray)
+for (int i = 0; i < evennumbersarray.Length; i++)
 {
-    var val = Array.IndexOf(evennumbersarray, i); // получаем индекс взятого числа из чётного массива
-    if (i == 0)
+    var val = evennumbersarray[i]; // получаем индекс взятого числа из чётного массива
+    if (val == 0)
     {
         continue;
     }
     else
     {
-        char evenchar = alphabetarray[i];
-        evencharsarray[val] = evenchar;
-        Console.WriteLine($"{i} = {evencharsarray[val]}");
+        char evenchar = alphabetarray[val];
+        evencharsarray[i] = evenchar;
+        Console.WriteLine($"{i} = {evencharsarray[i]}");
     }
 }
 
 Console.WriteLine(" ");
-foreach (int i in oddnumbersarray)
+for (int i = 0; i < oddnumbersarray.Length; i++)
 {
-    var val = Array.IndexOf(oddnumbersarray, i); // получаем индекс взятого числа из нечётного массива
-    if (i == 0)
+    var val = oddnumbersarray[i]; // получаем индекс взятого числа из нечётного массива
+    if (val == 0)
     {
         continue;
     }
     else
     {
-        char oddchar = alphabetarray[i];
-        oddcharsarray[val] = oddchar;
-        Console.WriteLine($"{i} = {oddcharsarray[val]}"); // записываем в ту же ячейку нового массива нечётных букв
+        char oddchar = alphabetarray[val];
+        oddcharsarray[i] = oddchar;
+        Console.WriteLine($"{i} = {oddcharsarray[i]}"); // записываем в ту же ячейку нового массива нечётных букв
     }
 }
 
@@ -170,8 +170,6 @@ Console.WriteLine($"В нечётной строке {oddcount} букв в ве
 
 string evencharres = new string(evencharsarray);
 string oddcharres = new string(oddcharsarray);
-Console.WriteLine(evencharres);
-Console.WriteLine(oddcharres);
 
 char[] evencharforstring = evencharres.ToCharArray();
 char[] oddcharforstring = oddcharres.ToCharArray();
