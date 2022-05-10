@@ -10,7 +10,7 @@ int arrlenght = Convert.ToInt32(arraylenght);
 
 if (arrlenght < 1 ^ arrlenght > 20)
 {
-    Console.WriteLine("Entered value do not match the conditions");
+    Console.WriteLine("Entered value does not match the conditions");
 }
 else
 {
@@ -25,8 +25,8 @@ else
     string alphabet = "-AbcDEfgHIJklmnopqrstuvwxyz";
     char[] alphabetarray = alphabet.ToCharArray();
 
-    // Look through numbers in the first array and set random digits
-    Console.WriteLine("Got an random numbers array:");
+    // Looking through numbers in the first array and setting random digits
+    Console.WriteLine("Got a random numbers array:");
     for (int i = 0; i < randomnumbersarray.Length; i++)
     {
         int randomnumber = new Random().Next(1, 26);
@@ -35,9 +35,9 @@ else
     }
 
     Console.WriteLine(" ");
-    Console.WriteLine("Splitting the numbers into odd and even");
+    Console.WriteLine("Splitting the numbers into odds and evens");
 
-    // Присваиваем елементам в соотв. массивах чётные и нечётные числа (Работает) Set even and odd numbers to elements in arrays accordingly
+    // Setting even and odd numbers to elements in arrays accordingly
     for (int i = 0; i < randomnumbersarray.Length; i++)
     {
         if (randomnumbersarray[i] % 2 == 0)
@@ -52,7 +52,7 @@ else
 
     Console.WriteLine(" ");
 
-    // Result returned
+    // Cheching results of the split
     Console.WriteLine("Evens");
     foreach (int i in evennumbersarray)
     {
@@ -72,62 +72,55 @@ else
     char[] evencharsarray = new char[evennumbersarray.Length];
     char[] oddcharsarray = new char[oddnumbersarray.Length];
 
-    // for each number in the evens array
-    for (int i = 0; i < evennumbersarray.Length; i++)
+    void FindLettersForNumsIn(int[] numbersarray, char[] charsarray) // Method to add letter into a second given array using a number from the first given array
     {
-        var val = evennumbersarray[i];
-        if (val == 0)
+        for (int i = 0; i < numbersarray.Length; i++)
         {
-            continue;
-        }
-        else
-        {
-            char xchar = alphabetarray[val];
-            evencharsarray[i] = xchar;
-            Console.WriteLine($"{val} = {evencharsarray[i]}");
+            var val = numbersarray[i];
+            if (val == 0)
+            {
+                continue;
+            }
+            else
+            {
+                char xchar = alphabetarray[val];
+                charsarray[i] = xchar;
+                Console.WriteLine($"{val} = {charsarray[i]}");
+            }
         }
     }
 
+    // for each number in the evens array
+    FindLettersForNumsIn(evennumbersarray, evencharsarray);
+
     Console.WriteLine(" ");
-    for (int i = 0; i < oddnumbersarray.Length; i++)
+
+    // for each number in the odds array
+    FindLettersForNumsIn(oddnumbersarray, oddcharsarray);
+
+
+    Console.WriteLine(" ");
+    void ShowLettersIn(char[] charsarray) // Method to display all letters in the given array
     {
-        var val = oddnumbersarray[i];
-        if (val == 0)
+        for (int i = 0; i < charsarray.Length; i++)
         {
-            continue;
-        }
-        else
-        {
-            char xchar = alphabetarray[val];
-            oddcharsarray[i] = xchar;
-            Console.WriteLine($"{val} = {oddcharsarray[i]}");
+            if (charsarray[i] == 0)
+            {
+                continue;
+            }
+
+            Console.Write(charsarray[i]);
         }
     }
 
     Console.WriteLine(" ");
     Console.WriteLine("Even alphabet letters");
-    for (int i = 0; i < evencharsarray.Length; i++)
-    {
-        if (evencharsarray[i] == 0)
-        {
-            continue;
-        }
-
-        Console.Write(evencharsarray[i]);
-    }
+    ShowLettersIn(evencharsarray);
 
 
     Console.WriteLine(" ");
     Console.WriteLine("Odd alphabet letters");
-    for (int i = 0; i < oddcharsarray.Length; i++)
-    {
-        if (oddcharsarray[i] == 0)
-        {
-            continue;
-        }
-
-        Console.Write(oddcharsarray[i]);
-    }
+    ShowLettersIn(oddcharsarray);
 
     Console.WriteLine(" ");
 
