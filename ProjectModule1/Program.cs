@@ -1,198 +1,197 @@
 ﻿using System;
 using System.Text;
 
-// Актуальные проблемы:
-// 1) Значение, заданное в консоли, не считывается
-// 2) Правильно превращает цифры в соотв. буквы, но почему-то заменяет повторы букв на пустые значения
-// т.е. вместо повтора буквы - пустая строка
-// 3) Для более аккуратного отображения нужно удалить пустые строки из массивов, которые превращаем в строки
 
-// Задаём цифру, введённую в консоль (Работает)
-int consolewrite = new Random().Next(5, 20);
-Console.WriteLine("В консоль ввели цифру:");
-Console.WriteLine(consolewrite);
+// Entering a number into the console
+Console.WriteLine("Enter any number from 1 to 20:");
+string? arraylenght = Console.ReadLine();
+Console.WriteLine($"You entered {arraylenght}");
+int arrlenght = Convert.ToInt32(arraylenght);
 
-// Считываем цифру из консоли как строку (Не работает)
-// string? arraylenght;
-// arraylenght = Console.ReadLine();
-// Console.WriteLine(arraylenght);
-// int arrlenght = Convert.ToInt32(arraylenght); // Превращаем строку в цифру (Не работает)
-int[] randomnumbersarray = new int[consolewrite];
-
-// Создаём два новых пустых массива для чётных и нечётных цифр
-int[] oddnumbersarray = new int[randomnumbersarray.Length];
-int[] evennumbersarray = new int[randomnumbersarray.Length];
-Console.WriteLine(" ");
-
-// Задаём алфавит и массив для него
-string alphabet = "-AbcDEfgHIJklmnopqrstuvwxyz";
-char[] alphabetarray = alphabet.ToCharArray();
-
-// Перебираем числа в первом массиве, присваиваем случайные цифры
-Console.WriteLine("Получили массив:");
-for (int i = 0; i < randomnumbersarray.Length; i++)
+if (arrlenght < 1 ^ arrlenght > 20)
 {
-    int randomnumber = new Random().Next(1, 26);
-    randomnumbersarray[i] = randomnumber;
-    Console.WriteLine(randomnumbersarray[i]);
+    Console.WriteLine("Entered value do not match the conditions");
 }
-
-Console.WriteLine(" ");
-Console.WriteLine("Разбиваем числа на чётные и нечётные");
-
-// Присваиваем елементам в соотв. массивах чётные и нечётные числа (Работает)
-for (int i = 0; i < randomnumbersarray.Length; i++)
+else
 {
-    if (randomnumbersarray[i] % 2 == 0)
+    int[] randomnumbersarray = new int[arrlenght];
+
+    // Creating 2 new empty arrays for even and odd numbers
+    int[] oddnumbersarray = new int[randomnumbersarray.Length];
+    int[] evennumbersarray = new int[randomnumbersarray.Length];
+    Console.WriteLine(" ");
+
+    // Creating alphabet and array for it
+    string alphabet = "-AbcDEfgHIJklmnopqrstuvwxyz";
+    char[] alphabetarray = alphabet.ToCharArray();
+
+    // Look through numbers in the first array and set random digits
+    Console.WriteLine("Got an random numbers array:");
+    for (int i = 0; i < randomnumbersarray.Length; i++)
     {
-        evennumbersarray[i] = randomnumbersarray[i];
-    }
-    else
-    {
-        oddnumbersarray[i] = randomnumbersarray[i];
-    }
-}
-
-Console.WriteLine(" ");
-
-// Получаем по итогу
-Console.WriteLine("Чётные");
-foreach (int i in evennumbersarray)
-{
-    Console.WriteLine(i);
-}
-
-Console.WriteLine("Нечётные");
-foreach (int i in oddnumbersarray)
-{
-    Console.WriteLine(i);
-}
-
-Console.WriteLine(" ");
-Console.WriteLine("Заменяем цифры в массивах на буквы");
-
-// Объявляем новые массивы, в которые будем записывать буквы
-char[] evencharsarray = new char[evennumbersarray.Length];
-char[] oddcharsarray = new char[oddnumbersarray.Length];
-
-// для каждого числа в чётном массиве
-for (int i = 0; i < evennumbersarray.Length; i++)
-{
-    var val = evennumbersarray[i]; // получаем индекс взятого числа из чётного массива
-    if (val == 0)
-    {
-        continue;
-    }
-    else
-    {
-        char evenchar = alphabetarray[val];
-        evencharsarray[i] = evenchar;
-        Console.WriteLine($"{i} = {evencharsarray[i]}");
-    }
-}
-
-Console.WriteLine(" ");
-for (int i = 0; i < oddnumbersarray.Length; i++)
-{
-    var val = oddnumbersarray[i]; // получаем индекс взятого числа из нечётного массива
-    if (val == 0)
-    {
-        continue;
-    }
-    else
-    {
-        char oddchar = alphabetarray[val];
-        oddcharsarray[i] = oddchar;
-        Console.WriteLine($"{i} = {oddcharsarray[i]}"); // записываем в ту же ячейку нового массива нечётных букв
-    }
-}
-
-// Не работает. Не выводит повторы букв
-Console.WriteLine(" ");
-Console.WriteLine("Чётные буквы алфавита");
-for (int i = 0; i < evennumbersarray.Length; i++)
-{
-    if (evennumbersarray[i] == 0)
-    {
-        continue;
+        int randomnumber = new Random().Next(1, 26);
+        randomnumbersarray[i] = randomnumber;
+        Console.WriteLine(randomnumbersarray[i]);
     }
 
-    Console.Write(evencharsarray[i]);
-}
+    Console.WriteLine(" ");
+    Console.WriteLine("Splitting the numbers into odd and even");
 
-Console.WriteLine(" ");
-Console.WriteLine("Нечётные буквы алфавита");
-for (int i = 0; i < oddnumbersarray.Length; i++)
-{
-    if (oddnumbersarray[i] == 0)
+    // Присваиваем елементам в соотв. массивах чётные и нечётные числа (Работает) Set even and odd numbers to elements in arrays accordingly
+    for (int i = 0; i < randomnumbersarray.Length; i++)
     {
-        continue;
-    }
-
-    Console.Write(oddcharsarray[i]);
-}
-
-Console.WriteLine(" ");
-
-// Считаем буквы в верхнем регистре
-
-// Перебираем циклом каждую букву в массиве чётных букв
-var evencount = 0;
-var oddcount = 0;
-foreach (char c in evencharsarray)
-{
-    if (c == alphabetarray[1] ^ c == alphabetarray[4] ^ c == alphabetarray[5] ^ c == alphabetarray[8] ^ c == alphabetarray[9] ^ c == alphabetarray[10])
-    {
-        evencount = evencount + 1;
-    }
-    else
-    {
-        continue;
-    }
-}
-
-Console.WriteLine(" ");
-Console.WriteLine($"В чётной строке {evencount} букв в верхнем регистре");
-
-foreach (char c in oddcharsarray)
-{
-    if (c == alphabetarray[1] ^ c == alphabetarray[4] ^ c == alphabetarray[5] ^ c == alphabetarray[8] ^ c == alphabetarray[9] ^ c == alphabetarray[10])
+        if (randomnumbersarray[i] % 2 == 0)
         {
-        oddcount = oddcount + 1;
+            evennumbersarray[i] = randomnumbersarray[i];
+        }
+        else
+        {
+            oddnumbersarray[i] = randomnumbersarray[i];
+        }
     }
-    else
+
+    Console.WriteLine(" ");
+
+    // Result returned
+    Console.WriteLine("Evens");
+    foreach (int i in evennumbersarray)
     {
-        continue;
+        Console.WriteLine(i);
     }
+
+    Console.WriteLine("Odds");
+    foreach (int i in oddnumbersarray)
+    {
+        Console.WriteLine(i);
+    }
+
+    Console.WriteLine(" ");
+    Console.WriteLine("Changing numbers in the arrays to letters");
+
+    // Creating new arrays for the letters
+    char[] evencharsarray = new char[evennumbersarray.Length];
+    char[] oddcharsarray = new char[oddnumbersarray.Length];
+
+    // for each number in the evens array
+    for (int i = 0; i < evennumbersarray.Length; i++)
+    {
+        var val = evennumbersarray[i];
+        if (val == 0)
+        {
+            continue;
+        }
+        else
+        {
+            char xchar = alphabetarray[val];
+            evencharsarray[i] = xchar;
+            Console.WriteLine($"{val} = {evencharsarray[i]}");
+        }
+    }
+
+    Console.WriteLine(" ");
+    for (int i = 0; i < oddnumbersarray.Length; i++)
+    {
+        var val = oddnumbersarray[i];
+        if (val == 0)
+        {
+            continue;
+        }
+        else
+        {
+            char xchar = alphabetarray[val];
+            oddcharsarray[i] = xchar;
+            Console.WriteLine($"{val} = {oddcharsarray[i]}");
+        }
+    }
+
+    Console.WriteLine(" ");
+    Console.WriteLine("Even alphabet letters");
+    for (int i = 0; i < evencharsarray.Length; i++)
+    {
+        if (evencharsarray[i] == 0)
+        {
+            continue;
+        }
+
+        Console.Write(evencharsarray[i]);
+    }
+
+
+    Console.WriteLine(" ");
+    Console.WriteLine("Odd alphabet letters");
+    for (int i = 0; i < oddcharsarray.Length; i++)
+    {
+        if (oddcharsarray[i] == 0)
+        {
+            continue;
+        }
+
+        Console.Write(oddcharsarray[i]);
+    }
+
+    Console.WriteLine(" ");
+
+
+    // High case letters to search
+    string highcasestring = "ADEHIJ";
+    char[] highcasearray = highcasestring.ToCharArray();
+
+    int CountHCLetters(char[] lettercount) // Method to count high case letters in the given array
+    {
+        var count = 0;
+        foreach (char c in lettercount)
+        {
+            foreach (char hchar in highcasearray)
+            {
+                if (c == hchar)
+                {
+                    count = count + 1;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    var evencount = CountHCLetters(evencharsarray);
+
+    Console.WriteLine(" ");
+    Console.WriteLine($"There are {evencount} high case letters in the evens string");
+
+    var oddcount = CountHCLetters(oddcharsarray);
+
+    Console.WriteLine($"There are {oddcount} high case letters in the odds string");
+
+    string evencharres = new string(evencharsarray);
+    string oddcharres = new string(oddcharsarray);
+
+    char[] evencharforstring = evencharres.ToCharArray();
+    char[] oddcharforstring = oddcharres.ToCharArray();
+
+    evencharres = string.Join(" ", evencharforstring);
+    oddcharres = string.Join(" ", oddcharforstring);
+
+    Console.WriteLine(" ");
+
+    // Display message "Array 1 bigger than Array 2" or otherwise
+    if (evencount > oddcount)
+    {
+        Console.Write($"There are more high case letters in the «{evencharres}» string than in «{oddcharres}»");
+    }
+
+    if (oddcount > evencount)
+    {
+        Console.Write($"There are more high case letters in the «{oddcharres}» string than in «{evencharres}»");
+    }
+
+    if (oddcount == evencount)
+    {
+        Console.Write($"Strings «{evencharres}» and «{oddcharres}» have the same number of high case letters");
+    }
+
+    Console.WriteLine(" ");
 }
-
-Console.WriteLine($"В нечётной строке {oddcount} букв в верхнем регистре");
-
-string evencharres = new string(evencharsarray);
-string oddcharres = new string(oddcharsarray);
-
-char[] evencharforstring = evencharres.ToCharArray();
-char[] oddcharforstring = oddcharres.ToCharArray();
-
-evencharres = string.Join(" ", evencharforstring);
-oddcharres = string.Join(" ", oddcharforstring);
-
-Console.WriteLine(" ");
-
-// Выводим на консоль сообщение "Массив 1 больше Массива 2" или наоборот.
-if (evencount > oddcount)
-{
-    Console.Write($"В строке «{evencharres}» больше букв в верхнем регистре, чем в строке «{oddcharres}»");
-}
-
-if (oddcount > evencount)
-{
-    Console.Write($"В строке «{oddcharres}» больше букв в верхнем регистре, чем в строке «{evencharres}»");
-}
-
-if (oddcount == evencount)
-{
-    Console.Write($"В строке «{evencharres}» и «{oddcharres}» одинаковое количество букв в верхнем регистре");
-}
-
-Console.WriteLine(" ");
